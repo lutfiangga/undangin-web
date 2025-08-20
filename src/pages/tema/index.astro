@@ -1,0 +1,15 @@
+---
+import Navbar from "../../components/Navbar.astro";
+import Layout from "../../layouts/Layout.astro";
+import Theme from "../../section/Theme.astro";
+
+const message = "Halo, saya mau order undangan digital";
+const encoded = encodeURIComponent(message);
+const phone = "6285740104220";
+const link = `https://api.whatsapp.com/send?phone=${phone}&text=${encoded}`;
+---
+
+<Layout>
+    <Navbar link={link} />
+    <Theme/>
+</Layout>

@@ -1,0 +1,45 @@
+---
+import { MessageCircleMore, Smile } from "@lucide/astro";
+
+let { link } = Astro.props;
+---
+
+<section
+  id="hero"
+  class="grid grid-cols-1 md:grid-cols-2 items-center justify-between p-12 gap-4 md:gap-0"
+>
+  <article class="flex flex-col gap-2 text-white sm:gap-4 md:gap-6">
+    <div
+      class="inline-flex gap-2 self-center items-center rounded-full border border-gray-800 px-4 py-2 text-xs sm:text-base text-green-300 md:self-start"
+    >
+      <Smile />
+      <span>Bagikan Momen Spesialmu</span>
+    </div>
+
+    <h1
+      class="text-center text-3xl font-semibold sm:text-4xl md:text-left md:text-5xl lg:text-7xl"
+    >
+      Bagikan Momen Spesialmu dengan Undangin
+    </h1>
+
+    <p class="pt-2 text-center md:text-left text-xs sm:text-base">
+      Undangin siap membantu kamu memberikan kabar bahagiamu tanpa jarak dan
+      waktu serta hemat di kantong.
+    </p>
+
+    <a
+      href={link}
+      target="_blank"
+      class="inline-flex mt-2 sm:mt-4 cursor-pointer self-center rounded-lg bg-white px-4 py-2 font-semibold text-black hover:bg-green-300 sm:rounded-xl sm:px-6 sm:py-3 md:self-start md:rounded-2xl md:px-8 md:py-4 gap-2"
+    >
+      <MessageCircleMore />
+      <span>Pesan Sekarang</span>
+    </a>
+  </article>
+
+  <img
+    src="/images/hero.webp"
+    alt="hero"
+    class="mx-auto w-full sm:mr-2 md:mr-4 md:max-w-2xl"
+  />
+</section>

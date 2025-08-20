@@ -1,0 +1,353 @@
+---
+let themes = [];
+let error = null;
+
+try {
+  const base = new URL(Astro.request.url).origin;
+  const res = await fetch(`${base}/api/themes`);
+
+  if (!res.ok) {
+    throw new Error(`Failed to fetch themes API: ${res.statusText}`);
+  }
+  const records = await res.json();
+
+  // Process the data similar to the Svelte version
+  const grouped = {};
+
+  records.forEach((rec) => {
+    const f = rec.fields;
+
+    // Validate required fields
+    if (!f?.title || !f?.typeTitle?.[0] || !f?.categoryTitle?.[0]) {
+      console.warn("Skipping record with missing required fields:", rec);
+      return;
+    }
+
+    const type = f.typeTitle[0];
+    const category = f.categoryTitle[0];
+
+    // Initialize type group if not exists
+    if (!grouped[type]) {
+      grouped[type] = {
+        type,
+        category: [],
+      };
+    }
+
+    const typeGroup = grouped[type];
+
+    // Find or create category group
+    let catGroup = typeGroup.category.find((c) => c.title === category);
+    if (!catGroup) {
+      catGroup = {
+        title: category,
+        image: f.categoryImage?.[0]?.url || null,
+        list: [],
+      };
+      typeGroup.category.push(catGroup);
+    }
+
+    // Add item to list
+    catGroup.list.push({
+      title: f.title,
+      link: f.link || "#",
+      images: f.images?.[0]?.url || "",
+      id: rec.id,
+      createdTime: rec.createdTime,
+    });
+  });
+
+  // Sort categories and items for consistency
+  themes = Object.values(grouped)
+    .map((typeGroup) => ({
+      ...typeGroup,
+      category: typeGroup.category
+        .map((catGroup) => ({
+          ...catGroup,
+          list: catGroup.list.sort((a, b) => a.title.localeCompare(b.title)),
+        }))
+        .sort((a, b) => a.title.localeCompare(b.title)),
+    }))
+    .sort((a, b) => a.type.localeCompare(b.type));
+} catch (err) {
+  console.error("Error fetching themes:", err);
+  error = err.message;
+}
+
+// Sort themes in descending order (Wedding first, then others)
+const sortedThemes = themes
+  .slice()
+  .sort((a, b) => b.type.localeCompare(a.type));
+---
+
+<section
+  id="theme"
+  class="flex flex-col items-center gap-6 space-y-2 md:px-24 md:py-12 mx-auto opacity-100 transition-opacity duration-300 ease-in-out"
+>
+  <div class="h-[2px] w-[20%] self-center bg-green-300"></div>
+  <h2
+    class="text-center text-2xl font-semibold text-white sm:text-3xl md:text-4xl"
+  >
+    <span class="text-green-300">Pilih Tema</span> Sesuai Keinginan Anda
+  </h2>
+
+  {
+    error ? (
+      <div class="rounded-lg border border-red-500/50 bg-red-900/20 p-4 text-center">
+        <p class="mb-2 text-red-300">
+          Terjadi kesalahan saat memuat tema: {error}
+        </p>
+        <button
+          id="retry-btn"
+          class="rounded bg-red-600 px-4 py-2 text-white transition-colors hover:bg-red-700"
+        >
+          Muat Ulang
+        </button>
+      </div>
+    ) : themes.length === 0 ? (
+      <div class="rounded-lg border border-yellow-500/50 bg-yellow-900/20 p-4 text-center">
+        <p class="text-yellow-300">Tidak ada tema yang tersedia saat ini.</p>
+      </div>
+    ) : (
+      <div
+        id="theme-selector"
+        class="flex flex-col gap-4 w-full justify-center items-center m-auto"
+      >
+        {/* <!-- Toggle Wedding / Non-Wedding --> */}
+        <div
+          class="inline-flex items-center rounded-xl bg-gray-800 p-1 mx-auto"
+          role="tablist"
+        >
+          {sortedThemes.map((theme, index) => (
+            <button
+              key={theme.type}
+              class={`theme-type-btn cursor-pointer rounded-lg px-6 py-2 font-semibold transition-all duration-200 ${
+                index === 0
+                  ? "bg-green-300 text-gray-900 shadow-md active"
+                  : "text-white/80 hover:bg-green-500/10 hover:text-green-300"
+              }`}
+              role="tab"
+              data-type={theme.type}
+              aria-selected={index === 0}
+            >
+              {theme.type}
+            </button>
+          ))}
+        </div>
+
+        {/* <!-- Categories container --> */}
+        <div
+          id="categories-container"
+          class="flex flex-wrap justify-center gap-4 rounded-md bg-white/20 p-1 md:rounded-xl md:p-2"
+        >
+          {/* <!-- Categories will be populated by JavaScript --> */}
+        </div>
+
+        {/* <!-- Category image container --> */}
+        <div id="category-image" class="w-full overflow-hidden rounded-xl">
+          {/* <!-- Category image will be populated by JavaScript --> */}
+        </div>
+
+        {/* <!-- Themes grid container --> */}
+        <div id="themes-grid" class="mt-8 w-full">
+          {/* <!-- Themes will be populated by JavaScript --> */}
+        </div>
+      </div>
+    )
+  }
+</section>
+
+<script define:vars={{ sortedThemes }}>
+  let selectedType = "";
+  let selectedCategory = "";
+  let currentThemes = sortedThemes;
+
+  // Initialize with first theme and category
+  if (currentThemes.length > 0) {
+    selectedType = currentThemes[0].type;
+    selectedCategory = currentThemes[0].category[0]?.title || "";
+  }
+
+  function getCurrentTheme() {
+    return currentThemes.find((t) => t.type === selectedType);
+  }
+
+  function getCurrentCategory() {
+    const theme = getCurrentTheme();
+    return theme?.category.find((c) => c.title === selectedCategory);
+  }
+
+  function updateCategories() {
+    const categoriesContainer = document.getElementById("categories-container");
+    const currentTheme = getCurrentTheme();
+
+    if (!categoriesContainer || !currentTheme) return;
+
+    categoriesContainer.innerHTML = currentTheme.category
+      .map(
+        (category) => `
+      <button
+        class="category-btn cursor-pointer rounded-md px-4 py-2 font-medium transition-all duration-200 ${
+          selectedCategory === category.title
+            ? "bg-green-300 text-black shadow-md active"
+            : "text-white hover:bg-white/10 hover:text-green-400"
+        }"
+        data-category="${category.title}"
+      >
+        ${category.title}
+      </button>
+    `
+      )
+      .join("");
+
+    // Add event listeners to category buttons
+    categoriesContainer.querySelectorAll(".category-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        selectedCategory = e.target.dataset.category;
+        updateUI();
+      });
+    });
+  }
+
+  function updateCategoryImage() {
+    const imageContainer = document.getElementById("category-image");
+    const currentCategory = getCurrentCategory();
+
+    if (!imageContainer) return;
+
+    if (currentCategory?.image) {
+      imageContainer.innerHTML = `
+        <img
+          src="${currentCategory.image}"
+          alt="Kategori ${selectedCategory}"
+          class="mt-6 w-full rounded-xl object-cover transition-all duration-300 hover:scale-105"
+          loading="lazy"
+        />
+      `;
+      imageContainer.style.display = "block";
+    } else {
+      imageContainer.style.display = "none";
+    }
+  }
+
+  function updateThemesGrid() {
+    const gridContainer = document.getElementById("themes-grid");
+    const currentCategory = getCurrentCategory();
+
+    if (!gridContainer) return;
+
+    if (currentCategory?.list.length > 0) {
+      gridContainer.innerHTML = `
+        <div class="grid w-full grid-cols-1 gap-6 text-white sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          ${currentCategory.list
+            .map(
+              (item) => `
+            <div class="group flex flex-col gap-2 rounded-lg border border-white/20 bg-white/5 p-3 transition-all duration-300 hover:border-green-300/50 hover:bg-white/10 hover:shadow-lg">
+              <div class="overflow-hidden rounded-md">
+                <img
+                  src="${item.images}"
+                  alt="Preview tema ${item.title}"
+                  class="h-56 w-full rounded-md object-cover transition-transform duration-300 group-hover:scale-105"
+                  loading="lazy"
+                />
+              </div>
+              <div class="mt-2 flex items-center gap-2 font-semibold capitalize">
+                <img
+                  src="/images/undangin logo mark.svg"
+                  alt="Undangin logo"
+                  class="h-4"
+                  loading="lazy"
+                />
+                <span class="truncate">${item.title}</span>
+              </div>
+              <a
+                href="${item.link}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center justify-center gap-2 rounded-md border border-white/60 px-4 py-2 font-bold transition-all duration-200 hover:border-green-300 hover:bg-green-300 hover:text-gray-800 hover:shadow-md focus:ring-2 focus:ring-green-300 focus:ring-offset-2 focus:ring-offset-gray-800 focus:outline-none"
+                aria-label="Lihat demo tema ${item.title}"
+              >
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                Lihat Demo
+              </a>
+            </div>
+          `
+            )
+            .join("")}
+        </div>
+      `;
+    } else {
+      gridContainer.innerHTML = `
+        <div class="rounded-lg border border-gray-600 bg-gray-800/50 p-6 text-center">
+          <p class="text-gray-300">Tidak ada tema tersedia untuk kategori "${selectedCategory}"</p>
+        </div>
+      `;
+    }
+  }
+
+  function updateTypeButtons() {
+    document.querySelectorAll(".theme-type-btn").forEach((btn) => {
+      if (btn.dataset.type === selectedType) {
+        btn.className =
+          "theme-type-btn cursor-pointer rounded-lg px-6 py-2 font-semibold transition-all duration-200 bg-green-300 text-gray-800 shadow-md active";
+        btn.setAttribute("aria-selected", "true");
+      } else {
+        btn.className =
+          "theme-type-btn cursor-pointer rounded-lg px-6 py-2 font-semibold transition-all duration-200 text-white/80 hover:bg-gray-700 hover:text-white";
+        btn.setAttribute("aria-selected", "false");
+      }
+    });
+  }
+
+  function updateUI() {
+    updateTypeButtons();
+    updateCategories();
+    updateCategoryImage();
+    updateThemesGrid();
+  }
+
+  // Initialize the UI
+  document.addEventListener("DOMContentLoaded", () => {
+    // Add event listeners to type buttons
+    document.querySelectorAll(".theme-type-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        selectedType = e.target.dataset.type;
+        const theme = getCurrentTheme();
+        if (theme?.category.length > 0) {
+          selectedCategory = theme.category[0].title;
+        }
+        updateUI();
+      });
+    });
+
+    // Add retry functionality
+    const retryBtn = document.getElementById("retry-btn");
+    if (retryBtn) {
+      retryBtn.addEventListener("click", () => {
+        window.location.reload();
+      });
+    }
+
+    // Initial UI setup
+    updateUI();
+  });
+</script>
+
+<style>
+  /* Loading spinner animation */
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>

@@ -1,0 +1,32 @@
+---
+import { cards } from "../lib/utils";
+---
+
+<section
+  id="about"
+  class="flex w-full flex-col items-center justify-center gap-3 text-white sm:gap-4 md:gap-6 py-2 md:py-4"
+>
+  <div class="h-[2px] w-[10%] bg-green-300"></div>
+  <h2
+    class="text-4xl font-semibold sm:text-5xl md:text-6xl lg:text-7xl text-center"
+  >
+    Bagikan Momen Spesialmu
+  </h2>
+  <p class="w-full text-center sm:max-w-xl">
+    Undangin siap membantu kamu memberikan kabar bahagiamu tanpa jarak dan waktu
+    serta hemat dikantong.
+  </p>
+  <div
+    class="flex flex-col items-center justify-between gap-3 px-4 md:flex-row"
+  >
+    {
+      cards.map(({ icon: Icon, title, description }) => (
+        <article class="flex flex-col gap-1.5 text-green-300 items-center justify-center max-w-96 text-center p-6">
+          <Icon size={36} />
+          <h4 class="text-white">{title}</h4>
+          <p class="text-white">{description}</p>
+        </article>
+      ))
+    }
+  </div>
+</section>

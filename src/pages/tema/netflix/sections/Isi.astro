@@ -1,0 +1,76 @@
+---
+import fixnikah from "../assets/img/fixnikah.webp";
+---
+
+<section
+  id="isi"
+  class="bg-[url('/images/pengantin.jpeg')] bg-cover bg-center text-center min-h-svh relative flex flex-col items-start justify-end text-white"
+>
+  <!-- Gradient atas -->
+  <div
+    class="h-1/4 w-full absolute -top-1 bg-gradient-to-b from-black to-white/0"
+  ></div>
+
+  <!-- Gradient bawah -->
+  <div
+    class="h-1/4 w-full absolute -bottom-1 bg-gradient-to-t from-black to-white/0"
+  ></div>
+
+  <!-- Konten -->
+  <div class="p-8 space-y-2 z-10 text-left flex flex-col">
+    <img src={fixnikah.src} alt="nikahfix" class="w-[200px]" />
+    <p class="text-3xl mt-4 font-bold mb-8">Fulan & Fulana: <br /> Sebelum Hari H</p>
+
+    <div class="inline-flex gap-2 justify-start text-sm items-center">
+      <p class="px-4 py-2 bg-red-600 rounded-md">Coming Soon</p>
+      <div id="countdown" class="tracking-wide">
+        <span id="days">00</span>D
+        <span id="hours">00</span>H
+        <span id="minutes">00</span>m
+        <span id="seconds">00</span>s
+      </div>
+    </div>
+
+    <ul class="inline-flex flex-wrap gap-2 text-xs *:bg-gray-400 *:rounded-full *:px-2 *:py-1">
+      <li>#getmarried</li>
+      <li>#romantic</li>
+      <li>#lovestory</li>
+      <li>#documenter</li>
+    </ul>
+  </div>
+</section>
+
+<script>
+     const targetDate = new Date("2025-08-10T14:00:00");
+
+    const daysEl = document.getElementById("days");
+    const hoursEl = document.getElementById("hours");
+    const minutesEl = document.getElementById("minutes");
+    const secondsEl = document.getElementById("seconds");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = targetDate - now;
+
+      if (diff <= 0) {
+        daysEl.textContent = "00";
+        hoursEl.textContent = "00";
+        minutesEl.textContent = "00";
+        secondsEl.textContent = "00";
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = String(days).padStart(2, "0");
+      hoursEl.textContent = String(hours).padStart(2, "0");
+      minutesEl.textContent = String(minutes).padStart(2, "0");
+      secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+</script>

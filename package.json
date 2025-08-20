@@ -1,0 +1,22 @@
+{
+  "name": "undangin",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/cloudflare": "^12.6.2",
+    "@lucide/astro": "^0.536.0",
+    "@tailwindcss/vite": "^4.1.11",
+    "aos": "^3.0.0-beta.6",
+    "astro": "^5.12.8",
+    "tailwindcss": "^4.1.11"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  }
+}

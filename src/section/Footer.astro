@@ -1,0 +1,48 @@
+---
+import { navlist } from "../lib/utils";
+
+const date = new Date();
+---
+
+<script>
+  const date = new Date();
+</script>
+
+<footer class="m-4 rounded-lg shadow-sm">
+  <div class="mx-auto w-full p-4 md:py-8">
+    <div class="sm:flex sm:items-center sm:justify-between justify-center">
+      <a href="/" class="mb-4 flex items-center space-x-3 sm:mb-0">
+        <img
+          src="/images/undangin logo mark.svg"
+          class="h-8 sm:h-12"
+          alt="Undangin Logo"
+        />
+        <div
+          class="flex flex-col justify-center gap-1 self-center text-2xl font-semibold whitespace-nowrap text-white md:gap-2 md:text-4xl"
+        >
+          Undangin
+          <p class="text-xs font-normal">Satu sentuhan, Ribuan kebahagiaan</p>
+        </div>
+      </a>
+      <ul
+        class="mb-6 flex flex-wrap justify-center sm:justify-between items-center text-sm font-medium text-gray-400 *:hover:text-green-300 *:hover:underline sm:mb-0"
+      >
+        {
+          navlist.map((item) => (
+            <li>
+              <a href={item.link} class="me-4 capitalize md:me-6">
+                {item.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <hr class="my-6 border-gray-700 sm:mx-auto lg:my-8" />
+    <span class="block text-sm text-gray-400 sm:text-center"
+      >© {date.getFullYear()}
+      <a href="/" class="hover:text-green-300 hover:underline">Undangin Media</a
+      >. All Rights Reserved.</span
+    >
+  </div>
+</footer>

@@ -1,0 +1,140 @@
+<section class="space-y-4 w-full my-8">
+  <h2 class="lato-bold text-2xl mt-8">Timeline & Location</h2>
+  <div class="flex flex-col space-y-2">
+    <!-- akad Nikah -->
+    <div class="grid grid-cols-2 gap-4">
+      <img
+        src="/images/groom.jpg"
+        alt="fulan & fulana"
+        class="w-full rounded-lg h-24 object-cover"
+      />
+      <div class="flex flex-col gap-2">
+        <h4 class="text-sm bg-red-600 text-white px-2 py-0.5 rounded-md w-fit">
+          Akad Nikah
+        </h4>
+        <p class="text-sm font-semibold">17 Agustus 2025</p>
+
+        <div
+          class="inline-flex gap-2 items-center *:px-2 *:py-1 *:bg-gray-400 *:rounded-full text-xs"
+        >
+          <p>08.00 s.d 10.00</p>
+          <p>#WIB</p>
+        </div>
+      </div>
+    </div>
+    <h4 class="text-sm text-white/70 my-2 text-justify">
+      Bertempat di Kediaman Mempelai Wanita - Jalanin aja sampai ketujuan No 99
+      Yogyakarta
+    </h4>
+    <a href="#" class="text-xs text-red-800"> Buka Google Maps >> </a>
+
+    <!-- Resepsi -->
+    <div class="grid grid-cols-2 gap-4">
+      <img
+        src="/images/bride.jpg"
+        alt="fulan & fulana"
+        class="w-full rounded-lg h-24 object-cover"
+      />
+      <div class="flex flex-col gap-2">
+        <h4 class="text-sm bg-red-600 text-white px-2 py-0.5 rounded-md w-fit">
+          Resepsi
+        </h4>
+        <p class="text-sm font-semibold">17 Agustus 2025</p>
+
+        <div
+          class="inline-flex gap-2 items-center *:px-2 *:py-1 *:bg-gray-400 *:rounded-full text-xs"
+        >
+          <p>14.00 s.d 17.00</p>
+          <p>#WIB</p>
+        </div>
+      </div>
+    </div>
+    <h4 class="text-sm text-white/70 my-2 text-justify">
+      Bertempat di Kediaman Mempelai Wanita - Jalanin aja sampai ketujuan No 99
+      Yogyakarta
+    </h4>
+    <a href="#" class="text-xs text-red-800"> Buka Google Maps >> </a>
+  </div>
+  <button
+    class="w-full rounded-lg bg-red-600 uppercase py-4 hover:bg-red-500 cursor-pointer"
+    popovertarget="rsvp">Konfirmasi Kehadiran</button
+  >
+
+  <form
+    id="rsvp"
+    popover
+    class="bg-white rounded-lg p-6 space-y-6 fixed left-1/2 top-0 -translate-x-1/2 z-50 max-w-md w-full"
+  >
+    <h2 class="font-bold text-black text-2xl text-center">RSVP</h2>
+
+    <!-- Input Nama -->
+    <div class="flex flex-col gap-2 text-black">
+      <label for="nama" class="text-sm font-medium">Nama</label>
+      <input
+        type="text"
+        name="nama"
+        id="nama"
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600"
+        placeholder="Nama"
+      />
+    </div>
+
+    <!-- Opsi Kehadiran -->
+    <div class="flex flex-col gap-2 text-black">
+      <label class="text-sm font-medium">Apakah kamu akan hadir?</label>
+      <div class="flex gap-4">
+        <label class="inline-flex items-center gap-2">
+          <input
+            type="radio"
+            name="kehadiran"
+            value="ya"
+            class="accent-green-600 focus:outline-none focus:ring-2 focus:ring-red-600"
+          />
+          <span>Ya</span>
+        </label>
+
+        <label class="inline-flex items-center gap-2">
+          <input
+            type="radio"
+            name="kehadiran"
+            value="tidak"
+            class="accent-red-600"
+          />
+          <span>Tidak</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Ucapan & Doa -->
+    <div class="flex flex-col gap-2 text-black">
+      <label for="ucapan" class="text-sm font-medium">Ucapan & Doa</label>
+      <textarea
+        name="ucapan"
+        id="ucapan"
+        rows="4"
+        placeholder="Tulis ucapan atau doa di sini..."
+        class="w-full rounded-lg border border-gray-300 px-4 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-red-600 resize-none"
+      ></textarea>
+    </div>
+
+    <!-- Tombol Kirim (Opsional) -->
+    <div class="text-center">
+      <button
+        type="submit"
+        class="bg-red-600 text-white py-2 w-full rounded-lg hover:bg-red-700 transition"
+      >
+        Kirim
+      </button>
+    </div>
+    <div class="h-1 bg-gray-300 w-full"></div>
+    <div class="flex flex-col gap-2 w-full border-b border-gray-300">
+        <div class="mt-2 inline-flex gap-2 items-center">
+            <p class="font-bold text-black text-base">Nama</p>
+            <p class="text-white text-sm bg-green-600 px-2 py-1 rounded-full">Hadir</p>
+            <p class="text-white text-sm bg-red-600 px-2 py-1 rounded-full">Tidak Hadir</p>
+            
+        </div>
+        <p class="mt-1 text-xs text-black/70 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure, assumenda.</p>
+    </div>
+  </form>
+</section>

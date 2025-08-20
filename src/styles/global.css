@@ -1,0 +1,73 @@
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'Aniyah';
+  src: url('../assets/font/Aniyah.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'TheSeasons';
+  src: url('../assets/font/theseasons.otf') format('truetype');
+}
+@font-face {
+  font-family: 'Joliet';
+  src: url('../assets/font/Joliet.woff') format('truetype');
+}
+@font-face {
+  font-family: 'Tangerine';
+  src: url('../assets/font/Tangerine.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Tangerine';
+  src: url('../assets/font/Tangerine.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato-Bold';
+  src: url('../assets/font/Lato-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: 'Lato-Regular';
+  src: url('../assets/font/Lato-Regular.ttf') format('truetype');
+}
+
+.tangerine-regular {
+  font-family: 'Tangerine', cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.tangerine-bold {
+  font-family: 'Tangerine', cursive;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.aniyah {
+  font-family: 'Aniyah', sans-serif;
+}
+.lato-bold {
+  font-family: 'Lato-Bold', sans-serif;
+}
+.lato {
+  font-family: 'Lato', sans-serif;
+}
+.theSeasons {
+  font-family: 'TheSeasons', sans-serif;
+}
+.joliet {
+  font-family: 'Joliet', sans-serif;
+}
+.times {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+body {
+  font-family: 'Georgia', serif;
+}
+.pita {
+  clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%, 10% 50%);
+}
+
+.blockQuote {
+  transform: translate(2px, -2px);
+  clip-path: inset(4.91575px 1.27251px 0px 0px);
+}

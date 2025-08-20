@@ -1,0 +1,18 @@
+// @ts-check
+import { defineConfig, sharpImageService } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import cloudflare from "@astrojs/cloudflare";
+// https://astro.build/config
+export default defineConfig({
+  output: "server",
+  vite: {
+    plugins: [tailwindcss()],
+    build: {
+      cssCodeSplit: false,
+    },
+  },
+  image: {
+    service: sharpImageService(),
+  },
+  adapter: cloudflare(),
+});

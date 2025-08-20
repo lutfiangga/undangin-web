@@ -1,0 +1,50 @@
+---
+import Seo from "../../../components/Seo.astro";
+import "../../../styles/global.css";
+
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- <link rel="icon" href="/favicon.png" /> -->
+    <meta name="generator" content={Astro.generator} />
+    <Seo />
+    <title>Nikahfix - Undangin | Platform Penyedia Undangan Digital</title>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+    ></script>
+    <!-- Google Analytics (GA4) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-8XB4X5KGYK"
+    ></script>
+    <!-- Microsoft Clarity -->
+    <script is:inline>
+      (function (c, l, a, r, i, t, y) {
+        c[a] =
+          c[a] ||
+          function () {
+            (c[a].q = c[a].q || []).push(arguments);
+          };
+        t = l.createElement(r);
+        t.async = 1;
+        t.src = "https://www.clarity.ms/tag/" + i;
+        y = l.getElementsByTagName(r)[0];
+        y.parentNode.insertBefore(t, y);
+      })(window, document, "clarity", "script", "riq95h4kxk");
+
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag("js", new Date());
+      gtag("config", "G-8XB4X5KGYK");
+    </script>
+  </head>
+  <body
+    class="bg-black lato mx-auto text-white min-h-svh max-w-xl p-4 md:px-16 md:py-8 lg:px-24 lg:py-12"
+  >
+    <slot />
+  </body>
+</html>

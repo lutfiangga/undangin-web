@@ -1,0 +1,64 @@
+---
+import undangin from "../assets/img/vendor/undangin.png";
+import catalens from "../assets/img/vendor/catalens.png";
+import oc from "../assets/img/vendor/oc.png";
+import mua from "../assets/img/vendor/mua.png";
+const year = new Date();
+---
+
+<section class="w-full p-4 space-y-4 text-center my-12 overflow-x-hidden">
+  <div class="flex items-center justify-center gap-4">
+    <div class="h-px w-20 bg-white"></div>
+    <h2
+      class="text-4xl font-bold text-white"
+      data-aos="fade-down"
+      data-aos-delay="500"
+    >
+      VENDOR
+    </h2>
+    <div class="h-px w-20 bg-white"></div>
+  </div>
+
+  <div class="grid grid-cols-3 gap-2 justify-center items-center">
+    <a
+      href="https://undangin.web.id"
+      data-aos="fade-right"
+      data-aos-delay="500"
+    >
+      <img
+        src={undangin.src}
+        alt="undanginmedia"
+        class="h-auto max-h-36 w-full"
+      />
+    </a>
+    <img
+      src={oc.src}
+      alt="omah creativa"
+      class="h-auto max-h-36 w-full"
+      data-aos="fade-up"
+      data-aos-delay="500"
+    />
+    <img
+      src={catalens.src}
+      alt="catalens"
+      class="h-auto max-h-36 w-full"
+      data-aos="fade-up"
+      data-aos-delay="500"
+    />
+    <img
+      src={mua.src}
+      alt="mua"
+      style="filter: invert(); mix-blend-mode: color-dodge;"
+      class="h-auto max-h-36 w-full"
+      data-aos="fade-left"
+      data-aos-delay="500"
+    />
+  </div>
+
+  <p class="mt-4 text-sm font-sans">
+    Digital Invitation Created by Undangin Media
+  </p>
+  <p class="mt-4 text-sm font-sans">
+    Copyright <span>{year.getFullYear()}</span> @ Undangin Media - All Rights Reserved
+  </p>
+</section>
