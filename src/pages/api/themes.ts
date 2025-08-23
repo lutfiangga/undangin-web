@@ -1,9 +1,20 @@
 import type { APIRoute } from "astro";
 
-const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
-const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY;
-
 export const GET: APIRoute = async () => {
+  const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
+  const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
+  console.log("API KEY (server):", process.env.AIRTABLE_API_KEY);
+  console.log("BASE ID (server):", process.env.AIRTABLE_BASE_ID);
+  if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
+    return new Response(
+      JSON.stringify({
+        error: "Env not found",
+        api: AIRTABLE_API_KEY,
+        base: AIRTABLE_BASE_ID,
+      }),
+      { status: 500 }
+    );
+  }
   const res = await fetch(
     `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/Themes?maxRecords=100&sort[0][field]=title`,
     {
