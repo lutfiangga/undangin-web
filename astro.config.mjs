@@ -14,5 +14,9 @@ export default defineConfig({
   image: {
     service: sharpImageService(),
   },
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    platformProxy: {
+      enabled: true,
+    },
+  }),
 });

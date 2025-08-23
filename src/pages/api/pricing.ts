@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 
-const AIRTABLE_BASE_ID = import.meta.env.AIRTABLE_BASE_ID;
-const AIRTABLE_API_KEY = import.meta.env.AIRTABLE_API_KEY;
+const AIRTABLE_BASE_ID = import.meta.env.VITE_AIRTABLE_BASE_ID;
+const AIRTABLE_API_KEY = import.meta.env.VITE_AIRTABLE_API_KEY;
 
 export const GET: APIRoute = async () => {
   const res = await fetch(
