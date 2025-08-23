@@ -88,7 +88,7 @@ export const faqs = [
   {
     title: "Butuh Bantuan / Konsultasi Terlebih Dahulu?",
     description: [
-      "Jika mengalami kesulitan dalam pemesanan jasa undangan digital kami, silahkan kontak kami melalui chat support whatsapp di: +62 812 3456 78xx",
+      "Jika mengalami kesulitan dalam pemesanan jasa undangan digital kami, silahkan kontak kami melalui chat support whatsapp di: +62 857 4010 4220",
       "Kami akan dengan senang hati siap membantu Anda.",
     ],
   },
