@@ -3,8 +3,8 @@ import type { APIRoute } from "astro";
 export const GET: APIRoute = async () => {
   const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID;
   const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY;
-  console.log("API KEY (server):", process.env.AIRTABLE_API_KEY);
-  console.log("BASE ID (server):", process.env.AIRTABLE_BASE_ID);
+  // console.log("API KEY (server):", process.env.AIRTABLE_API_KEY);
+  // console.log("BASE ID (server):", process.env.AIRTABLE_BASE_ID);
   if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID) {
     return new Response(
       JSON.stringify({
