@@ -12,6 +12,9 @@ export default defineConfig({
     build: {
       cssCodeSplit: false,
     },
+    define: {
+      "process.env": process.env,
+    },
   },
   image: {
     service: sharpImageService(),
