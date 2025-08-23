@@ -16,7 +16,7 @@ export const GET: APIRoute = async () => {
   if (!res.ok) {
     return new Response(
       JSON.stringify({
-        error: `Failed to fetch Airtable data: ${res.statusText}`,
+        error: `Failed to fetch Airtable data: ${res.statusText} api:${AIRTABLE_API_KEY} base: ${AIRTABLE_BASE_ID}`,
       }),
       { status: res.status }
     );
